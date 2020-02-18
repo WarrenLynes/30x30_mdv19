@@ -1,0 +1,16 @@
+
+<mat-card>
+  <mat-card-title>TASKS</mat-card-title>
+
+  <mat-card-content>
+
+    <mat-list>
+      <mat-list-item *ngFor="let task of data" (click)="selectTask.emit(task.id)">
+        {{task.name}}
+        <span style="flex-grow: 1;"></span>
+        <mat-icon style="flex-grow: 0;">launch</mat-icon>
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>
