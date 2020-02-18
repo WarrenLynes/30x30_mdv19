@@ -18,13 +18,16 @@ export class AuthGuard implements CanActivate, OnDestroy {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
 
+    const queryParams = state.url.length > 1 ?  { returnUrl: state.url } : null;
+    console.log(state.url);
+
     return this.facade.authenticated$.pipe(
       takeUntil(this.destroy$), first(),
       map(x => {
         if(x) {
           return true;
         } else {
-          this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+          this.router.navigate(['/login'], { queryParams });
           return false;
         }
       })

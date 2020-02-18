@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
@@ -27,7 +27,8 @@ export class AuthEffects {
     private store: Store<AppState>,
     private router: Router,
     private appFacade: AppFacade,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private route: ActivatedRoute
   ) {}
 
   authenticate$ = createEffect(
@@ -83,7 +84,11 @@ export class AuthEffects {
       ofType(authenticateSuccess),
       tap(({type, token}) => {
         this.appFacade.removeLoad('[AUTHENTICATE]');
-        this.router.navigateByUrl('/')
+        if(this.route.snapshot.queryParams['returnUrl']) {
+          this.router.navigateByUrl(this.route.snapshot.queryParams['returnUrl'])
+        } else {
+          this.router.navigateByUrl('');
+        }
       })
     )
   , {dispatch: false});

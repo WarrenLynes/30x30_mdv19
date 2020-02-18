@@ -1,1 +1,18 @@
-<p>tasks works!</p>
+
+
+<div class="container">
+  <div class="col-6">
+    <mdv19-list
+      [data]="tasks$ | async"
+      [selected]="task$ | async"
+      (selectTask)="select($event)"
+    ></mdv19-list>
+  </div>
+  <div class="col-6">
+    <mdv19-form
+      [selected]="task$ | async"
+      (deleteTask)="delete($event)"
+      (saveTask)="saveTask($event)"
+    ></mdv19-form>
+  </div>
+</div>

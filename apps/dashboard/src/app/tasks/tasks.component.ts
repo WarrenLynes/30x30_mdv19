@@ -11,6 +11,7 @@ import { TasksFacade } from '@mdv19/core-state';
 export class TasksComponent implements OnInit {
 
   tasks$: Observable<Task[]> = this.facade.allTasks$;
+  task$: Observable<Task> = this.facade.selectedTask$;
 
   constructor(private facade: TasksFacade) { }
 
@@ -18,4 +19,24 @@ export class TasksComponent implements OnInit {
     this.facade.loadTasks();
   }
 
+  saveTask(task: Task) {
+    if(task.id) {
+      this.facade.updateTask(task);
+    } else {
+      this.facade.createTask(task);
+    }
+    this.reset();
+  }
+
+  delete(task: Task) {
+    this.facade.deleteTask(task);
+  }
+
+  select(taskId: number) {
+    this.facade.selectTask(taskId);
+  }
+
+  reset() {
+    this.facade.selectTask(null);
+  }
 }

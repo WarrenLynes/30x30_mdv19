@@ -29,7 +29,6 @@ export class FormComponent implements OnChanges {
   submit() {
     if(this.form.valid) {
       this.saveTask.emit({...this.selected, ...this.form.value});
-      this.form.reset();
     }
   }
 

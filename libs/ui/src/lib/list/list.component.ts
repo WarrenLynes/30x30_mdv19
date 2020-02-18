@@ -11,7 +11,6 @@ export class ListComponent implements OnInit {
   @Input() data: Task[];
   @Input() selected: Task;
   @Output() selectTask = new EventEmitter<number>();
-  @Output() deleteTask = new EventEmitter<Task>();
 
   constructor() { }
 
